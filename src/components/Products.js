@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import './Products.css'
 import Image, { Shimmer } from 'react-shimmer'
 import item1 from '../assets/item1.png'
@@ -9,10 +9,14 @@ import item3 from '../assets/item3.png'
 import item4 from '../assets/item4.png'
 import item5 from '../assets/item4_big.png'
 
+
 const Products = () => {
 
+    const history = useHistory()
+    
     const handleRoute = (val) =>{
-        alert(val)
+        history.push("/item/" + val);
+        window.scrollTo(0, 0);
     }
 
     return (  

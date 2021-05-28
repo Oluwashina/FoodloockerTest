@@ -39,6 +39,29 @@
     justify-content: center;
 }
 
+.mobile-div-container{
+    background: linear-gradient(to right,#0f9b0f,#000000);
+    height: 400px;
+    padding: 30px;
+    box-shadow: 2px 2px 2px 2px #0f9b0f;
+    overflow: hidden;
+}
+
+.mobile-div-container .mobile-div-text h3 {
+    color: #fff;
+    font-family: poppins,sans-serif;
+    font-weight: 700;
+    text-rendering: optimizeSpeed;
+    font-size: 20px;
+    margin-top: 30px;
+}
+
+.mobile-div-container .mobile-div-text p {
+    color: #fff;
+    font-weight: lighter;
+    font-size: 15px;
+}
+
 
 
 

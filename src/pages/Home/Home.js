@@ -1,11 +1,25 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './Home.css'
 import StartUp from "../../assets/startup.svg";
 import Secure from "../../assets/secure.svg";
 import Support from "../../assets/support.svg";
 import Products from '../../components/Products';
+import app from '../../assets/app.webp'
+import googleplay from '../../assets/googleplay.webp'
+import Footer from '../../components/Footer';
+import {connect} from 'react-redux'
+import { getProducts } from '../../store/actions/products';
 
-const Home = () => {
+const Home = (props) => {
+
+    const {ProductsFetch} = props
+
+    // make call to fetch products on load of page
+  useEffect(() => {
+    ProductsFetch();
+  }, [ProductsFetch]);
+
+
     return ( 
         <>
          <div className="home">
@@ -57,9 +71,46 @@ const Home = () => {
 
       <Products />
 
+      {/* mobile div */}
+      <div className="mt-5 mobile-div-container mb-5">
+            <div className="container">
+                <div className="row">
+                    <div className="col-lg-5">
+                        <div className="mobile-div">
+                            <img className="lazyload d-block m-auto loading img-fluid" src={app} alt="app" />
+                        </div>
+                    </div>
+                    <div className="col-lg-7 col-sm-12 mt-5">
+                            <div className="mobile-div-text">
+                                <h3>Experience our mobile app</h3>
+                                <p>Shopping made easy, faster and convenient with FoodlockerApp</p>
+                                <br/>
+                                <a href="https://play.google.com/store/apps/details?id=com.ng.foodlocker.foodlocker">
+                                    <img src={googleplay} className='mt-4' style={{width: '35%'}} alt="app" />
+                                </a>
+                            </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+
+      <Footer />
+
 
         </>
      );
 }
+
+const mapStateToProps = (state) =>{
+    return{
+        products: state.product.products
+    }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+    return{
+        ProductsFetch: () => dispatch(getProducts()),
+    }
+}
  
-export default Home;
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
