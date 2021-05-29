@@ -1,7 +1,7 @@
 
 const initState = {
     count: 1,
-    
+    cartCount: 1
   };
   
   const cartReducer = (state = initState, action) => {

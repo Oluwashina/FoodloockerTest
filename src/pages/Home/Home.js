@@ -32,7 +32,7 @@ const Home = (props) => {
     return ( 
         <>
         <Navbar />
-         <div className="home">
+         <div className="home" style={{marginTop: '75px'}}>
             <div className="container">
             
             </div>
@@ -82,6 +82,7 @@ const Home = (props) => {
       <Products itemRoute={itemProduct} products={products} />
 
       {/* mobile div */}
+      <section  id="download-app" >
       <div className="mt-5 mobile-div-container mb-5">
             <div className="container">
                 <div className="row">
@@ -102,7 +103,8 @@ const Home = (props) => {
                     </div>
                 </div>
             </div>
-      </div>
+        </div>
+      </section>
 
       <Footer />
 

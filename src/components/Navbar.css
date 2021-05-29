@@ -69,13 +69,6 @@ header{
 
 .mainNav li.headerbtn a {
     line-height: 20px;
-    color: #fff;
-    margin-right: 5px;
-    /* margin-left: 10px; */
-    padding: 10px 20px;
-    border-radius: 5px;
-    min-width: 112px;
-    text-transform: uppercase;
 }
 
 .navicon{
@@ -107,6 +100,23 @@ header{
     top: 10px;
     transition: all .2s ease-in-out;
 }
+
+.cartDiv{
+    position: absolute;
+    top: -12px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #7BC30A;
+}
+.emptyCartDiv{
+    display: none;
+}
+
 
 /* active hamburger for close */
 .nav-toggle.active span {
@@ -221,6 +231,6 @@ header{
     }
 
     .mainNav li a.active, .mainNav li a:hover {
-        color: #0898D7;
+        color: #7BC30A;
     }
 }

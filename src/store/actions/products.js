@@ -1,6 +1,8 @@
 import axios from 'axios'
 import {apiUrl} from '../config'
 
+
+// fetch all products
 export const getProducts = ()  =>{
     return async function(dispatch) {
          try {

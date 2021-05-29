@@ -5,18 +5,24 @@ import {loginValidator} from '../../validationSchema/validator'
 import WelcomeImg from "../../assets/welcome-img.png";
 import Logo from "../../assets/logo.webp";
 import './login.css'
+import {connect} from 'react-redux'
+import { loginUser } from '../../store/actions/auth';
 
-const Login = () => {
+const Login = (props) => {
+
+  const {login} = props
 
     // submit login button
   const handleSubmit = async (values) => {
     const credentials = 
     {
       ...values,
+      issubmit: 1,
+      action: "login"
      }
 
      console.log(credentials)
-    //  await login(credentials);
+     await login(credentials);
   }
 
     return ( 
@@ -115,5 +121,17 @@ const Login = () => {
         </>
      );
 }
+
+const mapStateToProps = (state) =>{
+  return{
+
+  }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+    login: (creds) => dispatch(loginUser(creds)),
+  }
+}
  
-export default Login;
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

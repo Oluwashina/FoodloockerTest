@@ -4,18 +4,22 @@ import {Form, Formik} from 'formik'
 import {registerValidator} from '../../validationSchema/validator'
 import WelcomeImg from "../../assets/welcome-img.png";
 import Logo from "../../assets/logo.webp";
+import {connect} from 'react-redux'
+import { registerUser } from '../../store/actions/auth';
 
-const Register = () => {
+const Register = (props) => {
+
+  const {register} = props
 
       // submit login button
   const handleSubmit = async (values) => {
     const credentials = 
     {
       ...values,
-     }
+   }
 
      console.log(credentials)
-    //  await login(credentials);
+     await register(credentials);
   }
 
     return ( 
@@ -176,5 +180,19 @@ const Register = () => {
         </>
      );
 }
+
+
+const mapStateToProps = (state) =>{
+  return{
+
+  }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+    register: (creds) => dispatch(registerUser(creds)),
+  }
+}
  
-export default Register;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

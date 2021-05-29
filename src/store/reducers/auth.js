@@ -2,18 +2,30 @@
 const initState = {
   isAuthenticated: false,
   token: '',
+  profileDetails: {}
   
 };
 
 const authReducer = (state = initState, action) => {
   switch (action.type) {
     case 'LOGIN_SUCCESS':
-          localStorage.setItem("token", action.data.token)
           return {
               ...state,
               isAuthenticated: true,
-              token: action.data.token,
+              profileDetails: action.data.data
           }
+      case 'LOGIN_FAIL':
+        return{
+          ...state
+        }
+    case 'REGISTER_SUCCESS':
+          return{
+            ...state
+          }
+    case 'SIGNUP_FAIL':
+      return{
+        ...state
+      }
     default:
       return state;
   }

@@ -1,9 +1,13 @@
 import React, {useState} from 'react';
-import {Link, useLocation} from 'react-router-dom'
+import {useLocation} from 'react-router-dom'
+import {HashLink as Link,} from 'react-router-hash-link'
 import Logo from '../assets/logo.webp'
 import './Navbar.css'
+import {connect} from 'react-redux'
 
-const Navbar = () => {
+const Navbar = (props) => {
+
+    const {cartCount} = props
 
      // check for which path you are on
      const isActive = useLocation().pathname
@@ -48,13 +52,22 @@ const Navbar = () => {
                             <li className="navLink">
                                 <Link 
                                  className={isActive === "/contact" ? 'active' : ''}
-                                to="/">Contact Us</Link>
+                                to="/#download-app">Download App</Link>
                             </li>
                             <li className="navLink">
                                 <Link to="/login">Login</Link>
                             </li>
                             <li className="navLink">
                                 <Link to="/signup">SignUp</Link>
+                            </li>
+                            <li className="headerbtn">
+                                <Link to="/cart">
+                                        <i className="mdi mdi-cart-outline" style={{fontSize: 25}} ></i>
+                                        <div
+                                            className={cartCount === 0 ? "emptyCartDiv" : "cartDiv"}>
+                                           <span style={{color: '#fff', fontWeight: 'bold', fontSize: 12}}>{cartCount}</span>
+                                        </div>
+                                </Link>
                             </li>
                            
                           
@@ -76,5 +89,17 @@ const Navbar = () => {
         </>
     );
 }
+
+const mapStateToProps = (state) =>{
+    return{
+        cartCount: state.cart.cartCount,
+    }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+    return{
+
+    }
+}
  
-export default Navbar;
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
