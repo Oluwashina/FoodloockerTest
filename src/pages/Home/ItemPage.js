@@ -10,6 +10,7 @@ import ImageZoom from 'react-medium-image-zoom'
 import { Increment, Decrement } from '../../store/actions/carts';
 import './ItemPage.css'
 import Footer from '../../components/Footer';
+import Navbar from '../../components/Navbar';
 
 const ItemPage = (props) => {
 
@@ -17,8 +18,9 @@ const ItemPage = (props) => {
 
     return ( 
         <>
+        <Navbar />
          {/* breadcrumbs */}
-         <div style={{background: ' rgba(196, 196, 196, 0.2)', padding: '10px'}}> 
+         <div style={{background: ' rgba(196, 196, 196, 0.2)', padding: '10px', marginTop: '75px'}}> 
                 <div className="container">
                      <p className="mb-0" style={{fontSize: 14}}><span style={{color: '#7BC30A'}}>Home/Vegetables</span>/Beans</p>
                 </div>

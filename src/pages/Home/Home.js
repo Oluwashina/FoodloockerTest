@@ -9,10 +9,11 @@ import googleplay from '../../assets/googleplay.webp'
 import Footer from '../../components/Footer';
 import {connect} from 'react-redux'
 import { getProducts } from '../../store/actions/products';
+import Navbar from '../../components/Navbar';
 
 const Home = (props) => {
 
-    const {ProductsFetch} = props
+    const {ProductsFetch, products} = props
 
     // make call to fetch products on load of page
   useEffect(() => {
@@ -22,6 +23,7 @@ const Home = (props) => {
 
     return ( 
         <>
+        <Navbar />
          <div className="home">
             <div className="container">
             
@@ -69,7 +71,7 @@ const Home = (props) => {
         </div>
       </div>
 
-      <Products />
+      <Products products={products} />
 
       {/* mobile div */}
       <div className="mt-5 mobile-div-container mb-5">

@@ -3,14 +3,12 @@ import React from 'react';
 import {Link, useHistory} from 'react-router-dom'
 import './Products.css'
 import Image, { Shimmer } from 'react-shimmer'
-import item1 from '../assets/item1.png'
-import item2 from '../assets/item2.png'
-import item3 from '../assets/item3.png'
-import item4 from '../assets/item4.png'
-import item5 from '../assets/item4_big.png'
 
 
-const Products = () => {
+
+const Products = (props) => {
+
+    const {products} = props
 
     const history = useHistory()
     
@@ -18,6 +16,35 @@ const Products = () => {
         history.push("/item/" + val);
         window.scrollTo(0, 0);
     }
+
+    const AllProducts = !products ?
+    (
+        <div className="">
+        </div>
+    )
+     : products.map(product =>{
+            return(
+                <div key={product.id} className="col-lg-2 col-6 mb-4 productCard" onClick={() => handleRoute(product.id)}>
+                {/* image */}
+                <div className="text-center">
+                    <Image
+                     src={product.image} alt="oyap"
+                       NativeImgProps={{className: "productImage"}}
+                        fallback={<Shimmer width={140} height={150} />}
+                     />
+                </div>
+                {/* name */}
+                <div className="mt-3">
+                    <p className="mb-0 text-center">{product.name }</p>
+                </div>
+                {/* price */}
+                <div className="mt-2">
+                    <p className="mb-0 price text-center">{product.first_inventory_size}:  &#8358; {product.first_inventory_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
+                </div>
+            </div> 
+            )
+        }) 
+
 
     return (  
         <>
@@ -45,111 +72,7 @@ const Products = () => {
 
                 {/* mapping products */}
                 <div className="row">
-
-                {/* 1st product */}
-                     <div  className="col-lg-2 col-6 mb-4 productCard" onClick={() => handleRoute(1)}>
-                        {/* image */}
-                        <div className="text-center">
-                            <Image
-                                src={item1} alt="oyap"
-                                NativeImgProps={{className: "productImage"}}
-                                fallback={<Shimmer width={140} height={150} />}
-                                />
-                        </div>
-                        {/* name */}
-                        <div className="mt-3">
-                            <p className="mb-0 text-center">Corn</p>
-                        </div>
-                        {/* price */}
-                        <div className="mt-2">
-                            <p className="mb-0 price text-center">NGN 20,000</p>
-                        </div>
-                    </div> 
-
-                {/* 2nd */}
-                <div  className="col-lg-2 col-6 mb-4 productCard" onClick={() => handleRoute(1)}>
-                        {/* image */}
-                        <div className="text-center">
-                            <Image
-                                src={item2} alt="oyap"
-                                NativeImgProps={{className: "productImage"}}
-                                fallback={<Shimmer width={140} height={150} />}
-                                />
-                        </div>
-                        {/* name */}
-                        <div className="mt-3">
-                            <p className="mb-0 text-center">Corn</p>
-                        </div>
-                        {/* price */}
-                        <div className="mt-2">
-                            <p className="mb-0 price text-center">NGN 20,000</p>
-                        </div>
-                    </div> 
-
-                {/* 3rd */}
-                <div  className="col-lg-2 col-6 mb-4 productCard" onClick={() => handleRoute(1)}>
-                        {/* image */}
-                        <div className="text-center">
-                            <Image
-                                src={item3} alt="oyap"
-                                NativeImgProps={{className: "productImage"}}
-                                fallback={<Shimmer width={140} height={150} />}
-                                />
-                        </div>
-                        {/* name */}
-                        <div className="mt-3">
-                            <p className="mb-0 text-center">Corn</p>
-                        </div>
-                        {/* price */}
-                        <div className="mt-2">
-                            <p className="mb-0 price text-center">NGN 20,000</p>
-                        </div>
-                    </div> 
-
-                    {/* 4th */}
-                    <div  className="col-lg-2 col-6 mb-4 productCard" onClick={() => handleRoute(1)}>
-                        {/* image */}
-                        <div className="text-center">
-                            <Image
-                                src={item4} alt="oyap"
-                                NativeImgProps={{className: "productImage"}}
-                                fallback={<Shimmer width={140} height={150} />}
-                                />
-                        </div>
-                        {/* name */}
-                        <div className="mt-3">
-                            <p className="mb-0 text-center">Corn</p>
-                        </div>
-                        {/* price */}
-                        <div className="mt-2">
-                            <p className="mb-0 price text-center">NGN 20,000</p>
-                        </div>
-                    </div> 
-
-                    {/* 5th */}
-                    <div  className="col-lg-2 col-6 mb-4 productCard" onClick={() => handleRoute(1)}>
-                        {/* image */}
-                        <div className="text-center">
-                            <Image
-                                src={item5} alt="oyap"
-                                NativeImgProps={{className: "productImage"}}
-                                fallback={<Shimmer width={140} height={150} />}
-                                />
-                        </div>
-                        {/* name */}
-                        <div className="mt-3">
-                            <p className="mb-0 text-center">Corn</p>
-                        </div>
-                        {/* price */}
-                        <div className="mt-2">
-                            <p className="mb-0 price text-center">NGN 20,000</p>
-                        </div>
-                    </div> 
-
-
-
-
-
+                {AllProducts}
                 </div>
             </div>
 
