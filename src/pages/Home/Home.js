@@ -10,10 +10,18 @@ import Footer from '../../components/Footer';
 import {connect} from 'react-redux'
 import { getProducts } from '../../store/actions/products';
 import Navbar from '../../components/Navbar';
+import {useHistory} from 'react-router-dom'
 
 const Home = (props) => {
 
     const {ProductsFetch, products} = props
+
+    const history = useHistory()
+    
+  const itemProduct = (value) => {
+    history.push("/item/" + value);
+    window.scrollTo(0, 0);
+  };
 
     // make call to fetch products on load of page
   useEffect(() => {
@@ -71,7 +79,7 @@ const Home = (props) => {
         </div>
       </div>
 
-      <Products products={products} />
+      <Products itemRoute={itemProduct} products={products} />
 
       {/* mobile div */}
       <div className="mt-5 mobile-div-container mb-5">

@@ -14,7 +14,9 @@ import Navbar from '../../components/Navbar';
 
 const ItemPage = (props) => {
 
-    const {Increment, Decrement, count} = props
+    const baseUrl = "https://www.foodlocker.com.ng"
+
+    const {Increment, Decrement, count, product} = props
 
     return ( 
         <>
@@ -22,7 +24,7 @@ const ItemPage = (props) => {
          {/* breadcrumbs */}
          <div style={{background: ' rgba(196, 196, 196, 0.2)', padding: '10px', marginTop: '75px'}}> 
                 <div className="container">
-                     <p className="mb-0" style={{fontSize: 14}}><span style={{color: '#7BC30A'}}>Home/Vegetables</span>/Beans</p>
+                     <p className="mb-0" style={{fontSize: 14}}><span style={{color: '#7BC30A'}}>Home/{product.category_name}</span>/{product.name}</p>
                 </div>
         </div>
 
@@ -32,7 +34,7 @@ const ItemPage = (props) => {
                 
 
                 <div className="mt-4">
-                 <h5>Beans</h5>
+                 <h5>{product.name}</h5>
                 </div>
 
                 <div className="mt-4">
@@ -46,13 +48,13 @@ const ItemPage = (props) => {
                         <div className="mt-4">
                         <ImageZoom
                                  image={{
-                                 src: item1,
+                                 src: baseUrl + `${product.display_image}`,
                                  alt: 'oyap',
                                  className: 'img-fluid itemImage',
                                  
                                  }}  
                                  zoomImage={{
-                                 src: item1,
+                                 src: baseUrl + `${product.display_image}`,
                                  alt: 'agriculture'
                                  }}
                             />
@@ -157,7 +159,7 @@ const ItemPage = (props) => {
                         {/* description */}
                         <div className="mt-4">   
                             <h6 style={{fontWeight: 600}}>Description</h6>
-                            <p className="mt-2">Good and healthy</p>
+                            <p className="mt-2">{product.description}</p>
                         </div>
 
                     {/* quantity add */}
@@ -202,40 +204,6 @@ const ItemPage = (props) => {
 
                     </div>
 
-                    {/* seller section */}
-                    <div className="col-lg-3">
-                            <div className="sellersDiv mt-4 mt-lg-0">
-                               
-                                <div className="text-center">
-                                    <h6 style={{fontWeight: 600}}>Seller Details</h6>
-                                </div>
-
-                                <div className="text-center mt-3">
-                                    <img src={item1} alt="seller" className="img-fluid seller-image" />
-                                </div>
-
-                                <div className="text-center mt-3">
-                                    <p className="mb-0" style={{fontWeight: 600}}>Name1</p>
-                                </div>
-
-                                <div className="text-center mt-2">
-                                    <p className="mb-0" style={{fontSize: 14, fontWeight: 500}}>Reg Date: 26/12/2020</p>
-                                </div>
-
-                                <div className="text-center mt-2">
-                                    <p className="mb-0"  style={{fontSize: 14, fontWeight: 500}}>07060825698</p>
-                                </div>
-
-                                <div className="text-center mt-2">
-                                    <p className="mb-0"  style={{fontSize: 14, fontWeight: 500}}>shinzbaba@gmail.com</p>
-                                </div>
-
-                                <div className="mt-4">
-                                 <a  href={`tel:07060825698`} className="btn btn-contact btn-block mt-4" style={{color: 'white'}}>Contact Me</a> 
-                                </div>
-
-                            </div>
-                    </div>
 
                 </div>
             </div>
@@ -248,9 +216,15 @@ const ItemPage = (props) => {
      );
 }
 
-const mapStateToProps = (state) =>{
+const mapStateToProps = (state, ownProps) =>{
+    const id = ownProps.match.params.id
+    const products = state.product.products
+    const product = products.find(product => product.id === id);
     return{
+        product: product,
+        products: state.product.products,
         count: state.cart.count,
+        id: id
     }
 }
 

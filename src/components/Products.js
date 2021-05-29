@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {Link, useHistory} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import './Products.css'
 import Image, { Shimmer } from 'react-shimmer'
 
@@ -8,13 +8,10 @@ import Image, { Shimmer } from 'react-shimmer'
 
 const Products = (props) => {
 
-    const {products} = props
+    const {itemRoute, products} = props
 
-    const history = useHistory()
-    
     const handleRoute = (val) =>{
-        history.push("/item/" + val);
-        window.scrollTo(0, 0);
+        itemRoute(val)
     }
 
     const AllProducts = !products ?

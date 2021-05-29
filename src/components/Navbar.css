@@ -44,7 +44,7 @@ header{
 }
 
 .mainNav li a.active, .mainNav li a:hover {
-    color: #0898D7;
+    color: #7BC30A;
 }
 
 .mainNav li.navLink a:before {
@@ -58,7 +58,7 @@ header{
     transition: all .3s ease-in-out 0s;
     -webkit-transform: scaleX(0);
     transform: scaleX(0);
-    background-color: #0898D7;
+    background-color: #7BC30A;
 }
 
 .mainNav li a.active:before, .mainNav li a:hover:before {
@@ -102,7 +102,7 @@ header{
     width: 35px;
     height: 2px;
     border-radius: 1px;
-    background: #0898D7;
+    background: #7BC30A;
     cursor: pointer;
     top: 10px;
     transition: all .2s ease-in-out;
@@ -134,7 +134,7 @@ header{
     width: 35px;
     height: 2px;
     border-radius: 1px;
-    background: #0898D7;
+    background: #7BC30A;
     cursor: pointer;
     top: 10px;
     transition: all .2s ease-in-out
@@ -152,7 +152,7 @@ header{
     width: 35px;
     height: 2px;
     border-radius: 1px;
-    background: #0898D7;
+    background: #7BC30A;
     cursor: pointer;
     top: 10px;
     transition: all .2s ease-in-out;
