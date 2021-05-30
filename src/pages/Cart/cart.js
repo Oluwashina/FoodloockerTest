@@ -1,8 +1,18 @@
 import React from 'react';
 import Footer from '../../components/Footer';
 import Navbar from '../../components/Navbar';
+import {Link} from 'react-router-dom'
+import './cart.css'
+import {connect} from 'react-redux'
+import item1 from '../../assets/item1.png'
+import { Decrement, Increment } from '../../store/actions/carts';
 
-const Cart = () => {
+const Cart = (props) => {
+
+  const {count, Increment, Decrement} = props
+
+
+
     return ( 
         <>
         <Navbar/>
@@ -16,9 +26,107 @@ const Cart = () => {
               {/* cart history */}
               <div className="container mb-5">
                 <div className="text-center mt-lg-4 mt-4">
-                <h5 style={{fontWeight: 'bold'}}>CART</h5>
+                <h5 style={{fontWeight: 'bold'}}>CART</h5>                
                 </div>
+
+                
+            {/* cart title */}
+            <div 
+                className="mt-5 cart-title"
+                >   
+                    <div style={{flex: 3}}>
+                        <h6 style={{fontWeight: 700}}>Item</h6>
+                    </div>
+                    <div style={{flex: 1}}>
+                        <h6 style={{fontWeight: 700}}>Quantity</h6>
+                    </div>
+                    <div style={{flex: 1}}>
+                        <h6 style={{fontWeight: 700}}>Unit Price</h6>
+                    </div>
+                    <div style={{flex: 1}}>
+                        <h6 style={{fontWeight: 700}}>Sub Total</h6>
+                    </div>
+                </div>
+
+
+          {/* cart heading */}
+
+            {/* cart items layout */}
+            <div className="mt-lg-3 mt-4 cart-div">
+            <div style={{flex: 3}}>
+                <div style={{display: 'flex'}}>
+                    <div>
+                        <img src={item1} alt="cart" className="cartImage" />
+                    </div>
+                    <div className="ml-4">
+                        <p className="mb-0 mt-3" style={{width: '80%', lineHeight: '25px'}}>Corn</p>
+                        <p className="mb-0 mt-2" style={{color: '#C4C4C4', fontSize: 14}}>Description</p>
+                        <div className="mt-3">
+                            <p className="mb-0" 
+                            style={{color: '#ED881C', cursor: 'pointer'}}>REMOVE</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style={{flex: 1}}>
+                <div className="quantitycart-div mt-3 mt-lg-0">
+                        <div>
+                            <i 
+                            className={count === 1 ? "mdi mdi-minus disabled" : "mdi mdi-minus"}
+                            onClick={Decrement} 
+                            ></i>
+                        </div>
+                        <div style={{fontSize: 20}}>
+                           {count}
+                        </div>
+                        <div>
+                         <i className="mdi mdi-plus"
+                              onClick={Increment} 
+                            style={{fontSize: 20, cursor: 'pointer'}}></i>
+                            </div>
+                        </div>
+                </div>
+                <div style={{flex: 1,}}>
+                    <h6 className="mt-4 mt-lg-0 mb-4 mb-lg-0" style={{fontWeight: 700}}>NGN 100,000</h6>
+                </div>
+                <div style={{flex: 1}}>
+                    <h6 className="d-none d-md-block" style={{fontWeight: 700}}>NGN 100,000</h6>
+                </div>
+            </div>   
+
+
+                      
+            {/* total layout */}
+            <div 
+                 className="mt-5 total-div"
+                >   
+                    <div>
+                        
+                    </div>
+                    <div>
+                       
+                    </div>
+                    <div>
+                        <h5 style={{fontWeight: 700}}>TOTAL</h5>
+                    </div>
+                    <div>
+                        <h5 style={{fontWeight: 700, color: '#5B9223'}}>NGN 100,000</h5>
+                    </div>
+                </div>
+
+
+                <div
+                className="mt-2 text-center text-lg-right"
+                 >
+                <Link to="/checkout" className="btn btn-checkout mt-4">Proceed to Checkout</Link>
+                </div>
+
+
+
+
               </div>
+
 
 
 
@@ -29,5 +137,20 @@ const Cart = () => {
         </>
      );
 }
+
+
+const mapStateToProps = (state) =>{
+  return{
+    count: state.cart.count
+  }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+    Increment : () => dispatch(Increment()),
+    Decrement : () => dispatch(Decrement()),
+    // CartRemove: (id) => dispatch(deleteCart(id)),
+  }
+}
  
-export default Cart;
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
