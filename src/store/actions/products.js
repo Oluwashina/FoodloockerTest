@@ -15,3 +15,17 @@ export const getProducts = ()  =>{
       }
     };
  }
+
+//  fecth all categories
+export const getCategories = ()  =>{
+  return async function(dispatch) {
+       try {
+      const res = await axios.get(apiUrl + "?action=all_category");
+      if (res.status === 200) {
+        dispatch({ type: "Categories", data: res.data});
+      }
+       } catch (err) {
+     console.log(err)
+    }
+  };
+}

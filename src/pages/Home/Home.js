@@ -8,13 +8,13 @@ import app from '../../assets/app.webp'
 import googleplay from '../../assets/googleplay.webp'
 import Footer from '../../components/Footer';
 import {connect} from 'react-redux'
-import { getProducts } from '../../store/actions/products';
+import { getCategories, getProducts } from '../../store/actions/products';
 import Navbar from '../../components/Navbar';
 import {useHistory} from 'react-router-dom'
 
 const Home = (props) => {
 
-    const {ProductsFetch, products} = props
+    const {ProductsFetch, products, categoryFetch,categories} = props
 
     const history = useHistory()
     
@@ -26,7 +26,8 @@ const Home = (props) => {
     // make call to fetch products on load of page
   useEffect(() => {
     ProductsFetch();
-  }, [ProductsFetch]);
+    categoryFetch()
+  }, [ProductsFetch, categoryFetch ]);
 
 
     return ( 
@@ -79,7 +80,7 @@ const Home = (props) => {
         </div>
       </div>
 
-      <Products itemRoute={itemProduct} products={products} />
+      <Products itemRoute={itemProduct} products={products} categories={categories} />
 
       {/* mobile div */}
       <section  id="download-app" >
@@ -115,13 +116,15 @@ const Home = (props) => {
 
 const mapStateToProps = (state) =>{
     return{
-        products: state.product.products
+        products: state.product.products,
+        categories: state.product.categories
     }
 }
 
 const mapDispatchToProps = (dispatch) =>{
     return{
         ProductsFetch: () => dispatch(getProducts()),
+        categoryFetch: () => dispatch(getCategories())
     }
 }
  

@@ -1,7 +1,7 @@
 
 const initState = {
     products: [],
-    
+    categories: []    
   };
   
   const productReducer = (state = initState, action) => {
@@ -11,6 +11,11 @@ const initState = {
                 ...state,
                products: action.data.products
             }
+      case 'Categories':
+        return{
+          ...state,
+          categories: action.data.categories
+        }
       default:
         return state;
     }

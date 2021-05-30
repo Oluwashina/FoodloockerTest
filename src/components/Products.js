@@ -8,7 +8,7 @@ import Image, { Shimmer } from 'react-shimmer'
 
 const Products = (props) => {
 
-    const {itemRoute, products} = props
+    const {itemRoute, products, categories} = props
 
     const handleRoute = (val) =>{
         itemRoute(val)
@@ -54,9 +54,9 @@ const Products = (props) => {
                     </div>
                     <div style={{flex: 1}}>
                         <ul className="mb-0" style={{display: 'flex', listStyle: 'none', justifyContent: 'space-between', alignItems: 'flex-end',}}>
-                            <li className="d-none d-lg-block"><Link to="/"  style={{textDecoration: 'none', color: 'rgba(50, 51, 53, 0.8)'}}>Fruits</Link></li>
-                            <li className="d-none d-lg-block"><Link to="/" style={{textDecoration: 'none', color: 'rgba(50, 51, 53, 0.8)'}}>Vegetables</Link></li>
-                            <li className="d-none d-lg-block"><Link to="/" style={{textDecoration: 'none', color: 'rgba(50, 51, 53, 0.8)'}}>Meat</Link></li>
+                            <li className="d-none d-lg-block"><Link to="/"  style={{textDecoration: 'none', color: 'rgba(50, 51, 53, 0.8)'}}>{categories[0].name}</Link></li>
+                            <li className="d-none d-lg-block"><Link to="/" style={{textDecoration: 'none', color: 'rgba(50, 51, 53, 0.8)'}}>{categories[1].name}</Link></li>
+                            <li className="d-none d-lg-block"><Link to="/" style={{textDecoration: 'none', color: 'rgba(50, 51, 53, 0.8)'}}>{categories[2].name}</Link></li>
                             <li className="d-sm-block d-md-block"><Link to="/" style={{color: '#5B9223', textDecoration: 'none'}}>View All</Link></li>
                         </ul>
                     </div>
