@@ -4,10 +4,11 @@ import {HashLink as Link,} from 'react-router-hash-link'
 import Logo from '../assets/logo.webp'
 import './Navbar.css'
 import {connect} from 'react-redux'
+import { logOut } from '../store/actions/auth';
 
 const Navbar = (props) => {
 
-    const {cartCount} = props
+    const {cartCount, profileName, auth, logout} = props
 
      // check for which path you are on
      const isActive = useLocation().pathname
@@ -54,12 +55,35 @@ const Navbar = (props) => {
                                  className={isActive === "/contact" ? 'active' : ''}
                                 to="/#download-app">Download App</Link>
                             </li>
-                            <li className="navLink">
+
+                            {
+                                !auth ? 
+                                <li className="navLink">
                                 <Link to="/login">Login</Link>
                             </li>
-                            <li className="navLink">
+                            : 
+                                <li className="navLink">
+                                <span style={{fontSize: 14}}>
+                                    Hi, {profileName.name}
+                                    </span>
+                            </li>
+
+                            }
+                            
+                            {
+                                !auth ? 
+                                <li className="navLink">
                                 <Link to="/signup">SignUp</Link>
                             </li>
+                            :
+                                <li className="navLink">
+                                <Link to="/login"
+                                 onClick={logout}
+                                >Logout</Link>
+                            </li>
+                            }
+                           
+                           
                             <li className="headerbtn">
                                 <Link to="/cart">
                                         <i className="mdi mdi-cart-outline" style={{fontSize: 25}} ></i>
@@ -93,12 +117,14 @@ const Navbar = (props) => {
 const mapStateToProps = (state) =>{
     return{
         cartCount: state.cart.cartCount,
+        profileName: state.auth.profileDetails,
+        auth: state.auth.isAuthenticated
     }
 }
 
 const mapDispatchToProps = (dispatch) =>{
     return{
-
+        logout: () => dispatch(logOut()),
     }
 }
  

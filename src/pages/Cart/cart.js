@@ -1,17 +1,22 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Footer from '../../components/Footer';
 import Navbar from '../../components/Navbar';
 import {Link} from 'react-router-dom'
 import './cart.css'
 import {connect} from 'react-redux'
 import item1 from '../../assets/item1.png'
-import { Decrement, Increment } from '../../store/actions/carts';
+import { Decrement, getCart, Increment } from '../../store/actions/carts';
 
 const Cart = (props) => {
 
-  const {count, Increment, Decrement} = props
+  const {count, Increment, Decrement, auth, getCartItems} = props
 
-
+    // make call to fetch cart items
+    useEffect(() => {
+        if(auth){
+            getCartItems();
+         }
+    }, [getCartItems, auth]);
 
     return ( 
         <>
@@ -141,7 +146,8 @@ const Cart = (props) => {
 
 const mapStateToProps = (state) =>{
   return{
-    count: state.cart.count
+    count: state.cart.count,
+    auth: state.auth.isAuthenticated
   }
 }
 
@@ -150,6 +156,7 @@ const mapDispatchToProps = (dispatch) =>{
     Increment : () => dispatch(Increment()),
     Decrement : () => dispatch(Decrement()),
     // CartRemove: (id) => dispatch(deleteCart(id)),
+    getCartItems: () => dispatch(getCart()),
   }
 }
  

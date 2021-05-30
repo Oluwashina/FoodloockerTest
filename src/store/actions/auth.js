@@ -53,3 +53,12 @@ export const registerUser = (creds)  =>{
       }
     };
  }
+
+ // logout a user
+export const logOut = () => {
+    return (dispatch, getState) => {
+      localStorage.setItem("token", "")
+      dispatch({ type: "logout", err: "User Out" });
+    };
+  };
+  

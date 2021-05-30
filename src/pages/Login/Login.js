@@ -1,5 +1,5 @@
-import React from 'react';
-import {Link} from 'react-router-dom'
+import React, {useEffect} from 'react';
+import {Link, useHistory} from 'react-router-dom'
 import {Form, Formik} from 'formik'
 import {loginValidator} from '../../validationSchema/validator'
 import WelcomeImg from "../../assets/welcome-img.png";
@@ -10,7 +10,9 @@ import { loginUser } from '../../store/actions/auth';
 
 const Login = (props) => {
 
-  const {login} = props
+  const {login, isAuthenticated} = props
+
+  const history = useHistory()
 
     // submit login button
   const handleSubmit = async (values) => {
@@ -24,6 +26,13 @@ const Login = (props) => {
      console.log(credentials)
      await login(credentials);
   }
+
+  useEffect(() =>{
+    if(isAuthenticated){
+        history.push('/')
+      }
+  },[isAuthenticated, history])
+
 
     return ( 
         <>
@@ -124,7 +133,7 @@ const Login = (props) => {
 
 const mapStateToProps = (state) =>{
   return{
-
+    isAuthenticated: state.auth.isAuthenticated
   }
 }
 

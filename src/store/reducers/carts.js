@@ -1,7 +1,8 @@
 
 const initState = {
     count: 1,
-    cartCount: 1
+    cartCount: 1,
+    cartItems: []
   };
   
   const cartReducer = (state = initState, action) => {
@@ -16,6 +17,11 @@ const initState = {
                 ...state,
                 count: state.count - 1 
             }
+      case 'CARTITEMS':
+        return{
+          ...state,
+          cartItems: action.data.order_items
+        }
       default:
         return state;
     }
