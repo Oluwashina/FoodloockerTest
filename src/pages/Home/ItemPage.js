@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import item1 from '../../assets/item1.png'
 import item2 from '../../assets/item2.png'
 import Default from "../../assets/default.png";
@@ -7,16 +7,69 @@ import Default from "../../assets/default.png";
 // import item5 from '../../assets/item4_big.png'
 import {connect} from 'react-redux'
 import ImageZoom from 'react-medium-image-zoom'
-import { Increment, Decrement } from '../../store/actions/carts';
+import { Increment, Decrement, addToCart } from '../../store/actions/carts';
 import './ItemPage.css'
 import Footer from '../../components/Footer';
 import Navbar from '../../components/Navbar';
+import {useHistory} from 'react-router-dom'
 
 const ItemPage = (props) => {
 
     const baseUrl = "https://www.foodlocker.com.ng"
 
-    const {Increment, Decrement, count, product} = props
+    const history = useHistory()
+
+    const {Increment, Decrement, count, product, id, addCartClick, auth} = props
+
+    const [price, setPrice] = useState(product ? product.quantities[0].price : 0);
+
+    const [initialTab, setTab] = useState(0);
+
+    const onChangeRadio = (val, index) =>{
+        setTab(index)
+        setPrice(val)
+    }
+
+    const add = () =>{
+        console.log(price)
+        if(auth){
+            var res = {
+                issubmit: 1,
+                action: "save_to_cart",
+                quantities: count,
+                sku_index: initialTab,
+                products: id
+            }
+            addCartClick(res)
+        }
+        else{
+            history.push('/cart')  
+        }      
+    }
+
+    const BuyNow = () =>{
+        history.push('/checkout')
+    }
+
+    // mapping quantities from products
+    const priceLayout = product.quantities.length ? (
+        product.quantities.map((value, index) => {
+          return (  
+            <div key={index} className="custom-control custom-radio mt-2">
+                <input type="radio" id={`custom${index}`}
+                value={value.price}
+                checked={initialTab === index}
+                onChange={e => onChangeRadio(e.currentTarget.value, index)}
+                 name="customRadioInline" className="custom-control-input" />
+                <label className="custom-control-label" for={`custom${index}`} style={{color: '#5B9223', fontWeight: 'bold', fontSize: 20}}>&#8358; {value.price} per {value.name}</label>
+             </div>
+          );
+        })
+      ) : (
+        <div className="">
+        </div>
+      );
+    
 
     return ( 
         <>
@@ -140,13 +193,15 @@ const ItemPage = (props) => {
 
                         {/* item desc */}
                     <div className="col-lg-5">
-                        {/* amount */}
+                                
+                                {/* amount */}
                         <div className="mt-4">
-                            <h5 style={{color: '#5B9223', fontWeight: 'bold'}}>NGN 20,000</h5>
+                        {priceLayout}
                         </div>
+                    
 
                         {/* status */}
-                        <div>
+                        <div className="mt-3">
                             <h6>Status: <span style={{color: '#5B9223', fontWeight: 'bold'}}>
                                 In Stock
                                 </span></h6>
@@ -192,12 +247,12 @@ const ItemPage = (props) => {
                         <div className="mt-2" style={{display: 'flex',}}>
                             <div style={{flex: 1}}>
                             <button className="btn btn-add btn-block mt-4"
-                             
+                                onClick={add}
                             >Add to Cart</button>
                             </div>
                             <div className="ml-4" style={{flex: 1}}>
                         <button
-                        
+                        onClick={BuyNow}
                          className="btn btn-buy btn-block mt-4">Buy Now</button>
                             </div>
                         </div>
@@ -224,7 +279,8 @@ const mapStateToProps = (state, ownProps) =>{
         product: product,
         products: state.product.products,
         count: state.cart.count,
-        id: id
+        id: id,
+        auth: state.auth.isAuthenticated
     }
 }
 
@@ -232,6 +288,7 @@ const mapDispatchToProps =(dispatch) =>{
     return{
         Increment : () => dispatch(Increment()),
         Decrement : () => dispatch(Decrement()),
+        addCartClick: (val) => dispatch(addToCart(val)),
     }
 }
  

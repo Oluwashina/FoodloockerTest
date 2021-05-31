@@ -4,18 +4,18 @@ import cartReducer from "./carts";
 import productReducer from "./products";
 
 
-const appReducer = combineReducers({
+const rootReducer = combineReducers({
   auth: authReducer,
   product: productReducer,
   cart: cartReducer
 });
 
-const rootReducer = (state, action) => {
-  if (action.type === 'logout') {
-    state = undefined
-  }
+// const rootReducer = (state, action) => {
+//   if (action.type === 'logout') {
+//     state = undefined
+//   }
 
-    return appReducer(state, action)
-  }
+//     return appReducer(state, action)
+//   }
 
 export default rootReducer;

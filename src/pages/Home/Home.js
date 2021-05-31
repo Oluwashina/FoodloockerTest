@@ -11,10 +11,11 @@ import {connect} from 'react-redux'
 import { getCategories, getProducts } from '../../store/actions/products';
 import Navbar from '../../components/Navbar';
 import {useHistory} from 'react-router-dom'
+import { getCart } from '../../store/actions/carts';
 
 const Home = (props) => {
 
-    const {ProductsFetch, products, categoryFetch,categories} = props
+    const {ProductsFetch, products, categoryFetch,categories, getCartItems, auth} = props
 
     const history = useHistory()
     
@@ -28,6 +29,12 @@ const Home = (props) => {
     ProductsFetch();
     categoryFetch()
   }, [ProductsFetch, categoryFetch ]);
+
+  useEffect(() =>{
+    if(auth){
+      getCartItems()
+    }
+  }, [getCartItems, auth])
 
 
     return ( 
@@ -117,14 +124,16 @@ const Home = (props) => {
 const mapStateToProps = (state) =>{
     return{
         products: state.product.products,
-        categories: state.product.categories
+        categories: state.product.categories,
+        auth: state.auth.isAuthenticated
     }
 }
 
 const mapDispatchToProps = (dispatch) =>{
     return{
         ProductsFetch: () => dispatch(getProducts()),
-        categoryFetch: () => dispatch(getCategories())
+        categoryFetch: () => dispatch(getCategories()),
+        getCartItems: () => dispatch(getCart()),
     }
 }
  

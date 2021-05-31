@@ -46,4 +46,17 @@ body {
     color: white;
   }
 
+  .btn-sell{
+    background: #ED881C;
+    border-radius: 5px;
+    color: white;
+    padding: 10px 40px;
+    transition: all ease-in 0.5s;
+}
+.btn-sell:hover{
+    color: #ED881C;
+    background: white;
+    border: 1px solid #ED881C
+}
+
   
