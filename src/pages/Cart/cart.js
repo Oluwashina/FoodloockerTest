@@ -151,7 +151,7 @@ const Cart = (props) => {
                         <h5 style={{fontWeight: 700}}>TOTAL</h5>
                     </div>
                     <div>
-                        <h5 style={{fontWeight: 700, color: '#5B9223'}}>NGN {cartDetails ? cartDetails.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0}</h5>
+                        <h5 style={{fontWeight: 700, color: '#5B9223'}}>NGN {cartDetails ? cartDetails.total : 0}</h5>
                     </div>
                 </div>
 
